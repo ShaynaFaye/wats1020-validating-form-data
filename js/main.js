@@ -13,8 +13,8 @@ $(document).on('ready', function() {
     
     //Create method that only allows letters and spaces, no numbers:
     jQuery.validator.addMethod("lettersonly", function(value, element) {
-  return this.optional(element) || /^[a-z," "]+$/i.test(value);
-}, "Letters only please");
+        return this.optional(element) || /^[a-z\s]+$/i.test(value);
+    }, "Letters only please");
 
 // 2. Define a validation object for use on your page:
     $( "#order-form" ).validate({
@@ -26,7 +26,7 @@ $(document).on('ready', function() {
         /* (From html todo's) TODO: Add a general validation check so that any field contained in a `div.form-group. required` will be required to have information when the user submits the form.  Solution: I added a class 'required' to all input classes in the divs 'form-group required' then made a rule here for my newly created class.  This way I do not need to repeat the rule 'required' for each thing*/
         rules: {
             required: {
-                required: true
+               required: true
             },
             "your-name": {
                 maxlength: 128,
@@ -34,11 +34,12 @@ $(document).on('ready', function() {
             },
             "your-state": {
                 minlength: 2,
-                maxlength: 2,
+                maxlength: 2,  // added min & max length rule so it 
+                //would have to be exactly 2 letters
                 lettersonly: true
             },
             "your-zip": {
-                digits: true,
+                digits: true,  // must be a whole number, no letters
                 minlength: 5,
                 maxlength: 5
             },
@@ -47,10 +48,10 @@ $(document).on('ready', function() {
                 lettersonly: true
             },
             "card-number": {
-                creditcard: true
+                creditcard: true  // pre-set method from plugin
             },
             "expiry-month": {
-                required: true,
+                required: true, 
             },
             "expiry-year": {
                 required: true
